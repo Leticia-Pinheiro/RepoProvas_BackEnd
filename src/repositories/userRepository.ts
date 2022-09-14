@@ -4,7 +4,8 @@ import { users } from "@prisma/client"
 
 
 export async function createUser(
-    userData: TypeUser){    
+    userData: TypeUser){  
+          
     await prisma.users.create({data: userData})       
 }
 

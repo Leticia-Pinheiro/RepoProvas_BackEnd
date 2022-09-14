@@ -5,7 +5,11 @@ import * as testService from "../services/testService"
 import { IBodyAddTest } from "../utils/interfaces"
 
 export async function addTest(req: Request, res: Response){
+
     const testData : IBodyAddTest = req.body
+    await testService.addTest(testData)
+
+    res.send("Test registered successfully")
 }
 
 export async function getTestsByDiscipline(req: Request, res: Response){}

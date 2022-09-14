@@ -1,6 +1,8 @@
-import { users } from "@prisma/client"
+import { users, categories, teachers, disciplines, terms, teachersDisciplines, tests } from "@prisma/client"
 
 export type TypeUser = Omit<users, 'id'>
+
+export type TypeTest = Omit<tests, 'id'>
 
 export interface IBodySignUp
     {

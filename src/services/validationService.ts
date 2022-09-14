@@ -1,5 +1,6 @@
 import { users } from "@prisma/client"
 import * as userRepository from "../repositories/userRepository"
+import * as testRepository from "../repositories/testRepository"
 import { IBodySignUp, TypeUser } from "../utils/interfaces"
 import bcrypt from "bcrypt"
 
@@ -31,6 +32,20 @@ export async function validateToSignIn(
     return user
 }
 
+export async function validateToAddTest(
+    categoryName: string,
+    teacherName: string,
+    disciplineName: string){
+
+    const categoryId : number = await getCategoryId(categoryName)
+    const disciplineId : number = await getDisciplineId(disciplineName)
+    const teacherId : number = await getTeacherId(teacherName)
+    
+    const teacherDisciplineId : number = await getTeacherDisciplineId(teacherId, disciplineId)
+
+    return {categoryId, teacherDisciplineId}
+}
+
 //--------------------------------------------------------
 
 export async function validateUserByEmail(
@@ -57,4 +72,53 @@ export async function validatePassword(
     if(!bcrypt.compareSync(password, encryptedPassword)){
         throw { code: "Not Found", message: "Invalid password"}
     }
+}
+
+export async function getCategoryId(
+    categoryName: string){
+
+    const categoryData = await testRepository.getCategoryId(categoryName)
+
+    if(!categoryData){
+        throw {code: "Not Found", message: "Category not found"}
+    }
+
+    return categoryData.id
+}
+
+export async function getTeacherId(
+    teacherName: string){
+
+    const teacherData = await testRepository.getTeacherId(teacherName)
+
+    if(!teacherData){
+        throw {code: "Not Found", message: "Teacher not found"}
+    }
+
+    return teacherData.id
+}
+
+export async function getDisciplineId(
+    disciplineName: string){
+
+    const disciplineData = await testRepository.getDisciplineId(disciplineName)
+
+    if(!disciplineData){
+        throw {code: "Not Found", message: "Discipline not found"}
+    }
+
+    return disciplineData.id
+}
+
+export async function getTeacherDisciplineId(
+    teacherId: number,
+    disciplineId: number){
+
+    const teacherDisciplineData = await testRepository.getTeacherDisciplineId(teacherId, disciplineId)
+
+    if(!teacherDisciplineData){
+        throw {code: "Not Found", message: "Incorrect teacher or discipline"}
+    }
+
+    return teacherDisciplineData.id
 }
