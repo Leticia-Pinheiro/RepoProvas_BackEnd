@@ -16,6 +16,7 @@ model users {
 model teachers {
   id       Int    @id @default(autoincrement())
   name     String @unique
+  teachersDisciplines teachersDisciplines[]
 }
 
 model terms {
@@ -33,5 +34,15 @@ model disciplines {
   id       Int    @id @default(autoincrement())
   name     String @unique
   terms    terms  @relation(fields: [termId], references: [id])
-  termId   Int    
+  termId   Int   
+  teachersDisciplines teachersDisciplines[] 
+}
+
+model teachersDisciplines {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  teachers    teachers  @relation(fields: [teacherId], references: [id])
+  teacherId   Int  
+  disciplines    disciplines  @relation(fields: [disciplineId], references: [id])
+  disciplineId   Int   
 }
