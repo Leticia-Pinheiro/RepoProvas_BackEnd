@@ -12,3 +12,18 @@ model users {
   email    String @unique
   password String
 }
+
+model teachers {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+}
+
+model terms {
+  id       Int    @id @default(autoincrement())
+  number   Int    @unique
+}
+
+model categories {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+}

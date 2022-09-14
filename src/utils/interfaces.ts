@@ -8,3 +8,12 @@ export interface IBodySignUp
         password: string;
         confirmedPassword: string;
     }
+
+export interface IBodyAddTest
+    {
+        name: string;
+        pdfUrl: string;
+        categoryName: string;
+        teacherName: string;
+        disciplineName: string;
+    }
