@@ -21,9 +21,17 @@ model teachers {
 model terms {
   id       Int    @id @default(autoincrement())
   number   Int    @unique
+  disciplines disciplines[]
 }
 
 model categories {
   id       Int    @id @default(autoincrement())
   name     String @unique
+}
+
+model disciplines {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  terms    terms  @relation(fields: [termId], references: [id])
+  termId   Int    
 }
