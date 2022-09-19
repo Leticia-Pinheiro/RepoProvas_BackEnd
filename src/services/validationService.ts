@@ -46,6 +46,7 @@ export async function validateToAddTest(
     return {categoryId, teacherDisciplineId}
 }
 
+
 //--------------------------------------------------------
 
 export async function validateUserByEmail(
@@ -61,7 +62,7 @@ export async function validatePasswordAndConfirmedPassword(
     confirmedPassword: string){
 
     if(confirmedPassword !== password){
-        throw {code: "Unauthorized", message: "Different passwords"}
+        throw {code: "Unauthorized", message: "Incompatible passwords"}
     }
 }
 

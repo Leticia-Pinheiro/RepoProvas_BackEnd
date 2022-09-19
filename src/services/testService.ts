@@ -19,7 +19,19 @@ export async function addTest(
 
 }
 
-export async function getTestsByDiscipline(){}
+export async function getTestsByDiscipline(
+    disciplineId: number){
+    
+    const tests = await testRepository.getTestsByDiscipline(disciplineId)
 
-export async function getTestsByTeacher(){}
+    return tests
+}
+
+export async function getTestsByTeacher(
+    teacherId: number){
+
+    const tests = await testRepository.getTestsByDiscipline(teacherId)
+
+    return tests
+}
 

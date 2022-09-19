@@ -10,6 +10,18 @@ export async function addTest(
     await prisma.tests.create({data: testData})
 }
 
+export async function getTestsByDiscipline(
+    disciplineId: number){
+
+    
+}
+
+export async function getTestsByTeacher(
+    teacherId: number){
+
+    
+}
+
 export async function getCategoryId(
     categoryName: string){
 
