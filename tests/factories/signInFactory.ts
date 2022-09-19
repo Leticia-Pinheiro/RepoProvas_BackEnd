@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { TypeUser } from "../../src/utils/interfaces";
-
+import { TypeUser } from "../../src/utils/interfaces"
 
 
   const createNewUser = (): TypeUser => {

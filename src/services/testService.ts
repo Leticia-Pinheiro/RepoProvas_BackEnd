@@ -1,8 +1,6 @@
 import * as validationService from "./validationService"
 import * as testRepository from "../repositories/testRepository"
-import { categories, teachers, disciplines, terms, teachersDisciplines, tests } from "@prisma/client"
-// import { IBodyAddTest, TypeCategory, TypeTeacher, TypeDiscipline, TypeTerm, TypeTeacherDiscipline, TypeTest } from "../utils/interfaces"
-import { IBodyAddTest, TypeTest } from "../utils/interfaces"
+import { IBodyAddTest } from "../utils/interfaces"
 
 export async function addTest(
     testInfos: IBodyAddTest){

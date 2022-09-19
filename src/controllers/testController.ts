@@ -1,7 +1,5 @@
 import { Request, Response } from "express"
 import * as testService from "../services/testService"
-// import { categories, teachers, disciplines, terms, teachersDisciplines, tests } from "@prisma/client"
-// import { TypeCategory, TypeTeacher, TypeDiscipline, TypeTerm, TypeTeacherDiscipline, TypeTest } from "../utils/interfaces"
 import { IBodyAddTest } from "../utils/interfaces"
 
 export async function addTest(req: Request, res: Response){

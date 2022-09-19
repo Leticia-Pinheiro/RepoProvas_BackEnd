@@ -1,6 +1,5 @@
 import prisma from "../database/postgres"
 import { TypeUser } from "../utils/interfaces"
-import { users } from "@prisma/client"
 
 
 export async function createUser(

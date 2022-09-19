@@ -1,4 +1,3 @@
-import { users } from "@prisma/client"
 import * as userRepository from "../repositories/userRepository"
 import * as testRepository from "../repositories/testRepository"
 import { IBodySignUp, TypeUser } from "../utils/interfaces"

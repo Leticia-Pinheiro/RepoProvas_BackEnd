@@ -1,12 +1,9 @@
 import supertest from 'supertest';
 import app from '../src/index'
 import prisma from '../src/database/postgres'
-import * as signUpFactory from './factories/signUpFactory'
-import createNewUser from './factories/signInFactory'
-import userFactory from './factories/userFactory'
 import tokenFactory from './factories/tokenFactory';
 import createNewTest from './factories/testFactory';
-import { faker } from '@faker-js/faker';
+
 
 beforeEach(async () => {
     await prisma.$executeRaw`TRUNCATE TABLE tests`
