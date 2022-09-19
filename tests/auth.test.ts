@@ -1,10 +1,9 @@
-import axios from 'axios';
 import supertest from 'supertest';
 import app from '../src/index'
 import prisma from '../src/database/postgres'
-import * as signUpFactory from '../src/factories/signUpFactory'
-import * as signInFactory from '../src/factories/signInFactory'
-import userFactory from '../src/factories/userFactory'
+import * as signUpFactory from './factories/signUpFactory'
+import createNewUser from './factories/signInFactory'
+import userFactory from './factories/userFactory'
 import { faker } from '@faker-js/faker';
 
 beforeEach(async () => {
@@ -26,10 +25,11 @@ describe('POST /signUp', () => {
 
     it('Returns status 401. Email already registered', async () => {        
         const user = await signUpFactory.createNewUser()
-		await userFactory(user.email, user.password);
-		const result = await supertest(app).post('/sign-up').send(user);		
+        const {email, password} = user 
+		await userFactory({email, password});
+		const result = await supertest(app).post('/signUp').send(user);		
 
-		expect(result.status).toBe(404) 
+		expect(result.status).toBe(401) 
     })
 
     it('Returns status 401. Incompatible passwords', async () => {
@@ -47,15 +47,15 @@ describe('POST /signUp', () => {
 describe('POST /signIn', () => {
 
     it('Returns status 201. Login done', async () => {
-        const user = await signInFactory.createNewUser()
-		await userFactory(user.email, user.password)
+        const user = createNewUser()
+		await userFactory(user)
 		const userLoggedIn = await supertest(app).post('/signIn').send(user)
 		const status = userLoggedIn.status
 		expect(status).toEqual(200)
     })
 
     it('Returns status 401. Email not registered', async () => {
-        const user = await signInFactory.createNewUser()
+        const user = createNewUser()
 
 		const userLoggedIn = await supertest(app).post('/signIn').send({ ...user, email: faker.internet.email() })
 		const status = userLoggedIn.status
@@ -63,7 +63,7 @@ describe('POST /signIn', () => {
     })
 
     it('Returns status 401. Incorrect password', async () => {
-        const user = await signInFactory.createNewUser()
+        const user = createNewUser()
 
 		const userLoggedIn = await supertest(app).post('/signIn').send({ ...user, password: 'teste79586' })
 		const status = userLoggedIn.status

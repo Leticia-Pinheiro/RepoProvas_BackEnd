@@ -12,19 +12,14 @@ export async function addTest(req: Request, res: Response){
     res.send("Test registered successfully").status(201)
 }
 
-export async function getTestsByDiscipline(req: Request, res: Response){
-    const disciplineId : number = Number(req.params.id)
-
-    const testsData = await testService.getTestsByDiscipline(disciplineId)
+export async function getTestsByDiscipline(req: Request, res: Response){ 
+    const testsData = await testService.getTestsByDiscipline()
 
     res.send(testsData).status(200)
 }
 
-export async function getTestsByTeacher(req: Request, res: Response){
-
-    const teacherId : number = Number(req.params.id)
-
-    const testsData = await testService.getTestsByTeacher(teacherId)
+export async function getTestsByTeacher(req: Request, res: Response){   
+    const testsData = await testService.getTestsByTeacher()
 
     res.send(testsData).status(200)
 }

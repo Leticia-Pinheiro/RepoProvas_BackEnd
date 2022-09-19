@@ -10,15 +10,103 @@ export async function addTest(
     await prisma.tests.create({data: testData})
 }
 
-export async function getTestsByDiscipline(
-    disciplineId: number){
-
+export async function getTestsByDiscipline(){
+		const tests = await prisma.terms.findMany({
+			select: {
+				number: true,
+				disciplines : {
+				  select: {
+					id: true,
+					name: true,
+					teachersDisciplines: {
+					  select: {
+						tests: {
+						  distinct: ['categoryId'],
+						  select: {
+							categories : {
+							  select: {
+								id: true,
+								name: true,
+								tests: {
+								  select: {
+									id: true,
+									name: true,
+									pdfUrl: true,
+									teachersDisciplines: {
+									  select: {
+										teachers: {
+										  select: {
+											name: true,
+										  },
+										},
+									  },
+									},
+								  },
+								},
+							  },
+							},
+						  },
+						  orderBy: [
+							{
+							  categories: {
+								name: 'desc',
+							  },
+							},
+						  ],
+						},
+					  },
+					},
+				  },
+				},
+			  }, 
+		})
+	
+		return tests
     
 }
 
-export async function getTestsByTeacher(
-    teacherId: number){
-
+export async function getTestsByTeacher(){
+		const tests = await prisma.teachers.findMany({
+			select: {
+				name: true,
+				teachersDisciplines : {
+				  select: {
+					tests: {
+					  distinct: ['categoryId'],
+					  select: {
+						categories: {
+						  select: {
+							id: true,
+							name: true,
+							tests: {
+							  select: {
+								id: true,
+								name: true,
+								pdfUrl: true,
+								teachersDisciplines: {
+								  select: {
+									disciplines: { select: { name: true } },
+								  },
+								},
+							  },
+							},
+						  },
+						},
+					  },
+					  orderBy: [
+						{
+						  categories: {
+							name: 'desc',
+						  },
+						},
+					  ],
+					},
+				  },
+				},
+			  },
+			});
+	
+		return tests
     
 }
 

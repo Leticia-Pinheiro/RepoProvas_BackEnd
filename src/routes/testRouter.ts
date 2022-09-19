@@ -15,13 +15,13 @@ testRouter.post(
 )
 
 testRouter.get(
-	"/tests/discipline/:id",		
+	"/tests/discipline",		
     verifyToken,
 	testController.getTestsByDiscipline
 )
 
 testRouter.get(
-	"/tests/teacher/:id",		
+	"/tests/teacher",		
     verifyToken,
 	testController.getTestsByTeacher
 )
